@@ -1,5 +1,5 @@
 ﻿using System;
-using Board;
+using board;
 
 namespace MyApp
 {
@@ -7,7 +7,8 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Chess Console App: ");
+            Board board01 = new Board(8, 8);
+            Console.WriteLine(board01);
         }
     }
 }
