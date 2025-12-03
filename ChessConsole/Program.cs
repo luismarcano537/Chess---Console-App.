@@ -1,4 +1,5 @@
 ﻿using System;
+using Board;
 
 namespace MyApp
 {
@@ -6,7 +7,7 @@ namespace MyApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Chess Console App: ");
         }
     }
 }
