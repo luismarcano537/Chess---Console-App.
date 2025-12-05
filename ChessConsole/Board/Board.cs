@@ -26,5 +26,11 @@ namespace board
         {
             return Pieces[line, columns];
         }
+
+        public void AddPiece(Piece p, Position pos)
+        {
+            Pieces[pos.Line, pos.Column] = p;
+            p.position = pos;
+        }
     }
 }
