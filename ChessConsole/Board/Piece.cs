@@ -6,9 +6,9 @@ namespace board
 {
     internal class Piece
     {
-        public Position position { get; set; }
+        public Position? position { get; set; }
         public Color color { get; protected set; }
-        public int QttMovements { get; protected set; }
+        public int? QttMovements { get; protected set; }
         public Board board { get; protected set; }
 
         public Piece(Board board, Color color)

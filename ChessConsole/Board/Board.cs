@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using screen;
+using Chess;
+using ChessConsole.Board;
 
 namespace board
 {
@@ -14,7 +17,7 @@ namespace board
         {
             this.Lines = lines;
             this.Columns = columns;
-            Pieces = new Piece[Lines, columns];
+            Pieces = new Piece[lines, columns];
         }
 
         public override string ToString()
@@ -22,15 +25,47 @@ namespace board
             return "Board: " + Lines + ", " + Columns;
         }
 
-        public Piece piece(int line, int columns)
+        public Piece piece(int Line, int Column)
         {
-            return Pieces[line, columns];
+            return Pieces[Line, Column];
         }
 
-        public void AddPiece(Piece p, Position pos)
+        public Piece piece(Position position)
         {
-            Pieces[pos.Line, pos.Column] = p;
-            p.position = pos;
+            return Pieces[position.Line, position.Column];
+        }
+
+        public bool PieceHere(Position position)
+        {
+            ValidatePosition(position);
+            return piece(position) != null;
+        }
+
+        public void AddPiece(Piece p, Position position)
+        {
+            if (PieceHere(position))
+            {
+                throw new BoardException("There is already a piece here");
+            }
+            Pieces[position.Line, position.Column] = p;
+            p.position = position;
+        }
+
+        public bool ValidPosition(Position position)
+        {
+            if (position.Line < 0 || position.Line >= Lines || position.Column < 0 || position.Column >= Columns)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public void ValidatePosition(Position position)
+        {
+            if (!ValidPosition(position))
+            {
+                throw new Exception("Invalid Position");
+            }
         }
     }
 }
