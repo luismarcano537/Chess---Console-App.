@@ -21,5 +21,10 @@ namespace board
         {
             return "Board: " + Lines + ", " + Columns;
         }
+
+        public Piece piece(int line, int columns)
+        {
+            return Pieces[line, columns];
+        }
     }
 }

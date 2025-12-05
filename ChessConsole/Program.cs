@@ -1,5 +1,6 @@
 ﻿using System;
 using board;
+using screen;
 
 namespace MyApp
 {
@@ -8,7 +9,9 @@ namespace MyApp
         static void Main(string[] args)
         {
             Board board01 = new Board(8, 8);
-            Console.WriteLine(board01);
+            Screen.PrintBoard(board01);
+
+            Console.ReadLine();
         }
     }
 }
