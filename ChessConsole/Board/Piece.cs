@@ -18,5 +18,10 @@ namespace board
             this.color = color;
             this.QttMovements = 0;
         }
+
+        public void addMovements()
+        {
+            QttMovements++;
+        }
     }
 }

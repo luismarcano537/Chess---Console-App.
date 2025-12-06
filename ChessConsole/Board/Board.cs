@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using screen;
 using Chess;
-using ChessConsole.Board;
 
 namespace board
 {
@@ -49,6 +48,18 @@ namespace board
             }
             Pieces[position.Line, position.Column] = p;
             p.position = position;
+        }
+
+        public Piece RemovePiece(Position position)
+        {
+            if (piece(position) == null)
+            {
+                return null;
+            }
+            Piece aux = piece(position);
+            aux.position = null;
+            Pieces[position.Line, position.Column] = null;
+            return aux;
         }
 
         public bool ValidPosition(Position position)
