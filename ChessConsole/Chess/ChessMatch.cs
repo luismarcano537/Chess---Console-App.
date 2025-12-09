@@ -9,8 +9,8 @@ namespace Chess
     internal class ChessMatch
     {
         public Board board { get; private set; }
-        private int turn;
-        private Color CurrentPlayer;
+        public int turn { get; private set; }
+        public Color CurrentPlayer { get; private set; }
         public bool endMatch { get; private set; }
 
 
@@ -23,6 +23,7 @@ namespace Chess
             PlacePiece();
         }
 
+        //Executa o movimento
         public void ExecuteMovement(Position origin, Position destination)
         {
             Piece p = board.RemovePiece(origin);
@@ -31,6 +32,55 @@ namespace Chess
             board.AddPiece(p, destination);
         }
 
+        //Executa o movimento no tabuleiro
+        public void MakeMove(Position origin, Position destination)
+        {
+            ExecuteMovement(origin, destination);
+            turn++;
+            ChangePlayer();
+        }
+
+        //Valida os possiveis movimentos na posição de origem
+        public void ValidateHomePosition(Position pos)
+        {
+            if (board.piece(pos) == null)
+            {
+                throw new BoardException("There is no part in the especified origin position");
+            }
+            if (CurrentPlayer != board.piece(pos).color)
+            {
+                throw new BoardException("The chosen original part is not yours, choose a part: " + CurrentPlayer);
+            }
+            if (!board.piece(pos).PossibleMoves())
+            {
+                throw new BoardException("There are no possible moves for the chosen piece!!");
+            }
+        }
+
+        //Valida os possiveis movimentos na posição de destino
+        public void ValidadeDestinationPosition(Position origin, Position destination)
+        {
+            if (!board.piece(origin).CanMoveTo(destination))
+            {
+                throw new BoardException("Target position invalid!");
+            }
+        }
+
+
+        //Muda o jogador atual
+        private void ChangePlayer()
+        {
+            if (CurrentPlayer == Color.White)
+            {
+                CurrentPlayer = Color.Black;
+            }
+            else
+            {
+                CurrentPlayer = Color.White;
+            }
+        }
+
+        //Coloca as peças no tabuleiro
         private void PlacePiece()
         {
             board.AddPiece(new Tower(board, Color.White), new PositionChess('c', 1).ToPosition());

@@ -24,6 +24,28 @@ namespace board
             QttMovements++;
         }
 
+        //Metodo para verificar se existe movimentos possives (Se a peça não está trancada)
+        public bool PossibleMoves()
+        {
+            bool[,] mat = PossibleMovements();
+            for (int i = 0; i < board.Lines; i++)
+            {
+                for (int j = 0; j < board.Columns; j++)
+                {
+                    if (mat[i, j])
+                    {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanMoveTo(Position pos)
+        {
+            return PossibleMovements()[pos.Line, pos.Column];
+        }
+
         //Metodo abstracto para implementar os possiveis movimentos.
         public abstract bool[,] PossibleMovements();
     }

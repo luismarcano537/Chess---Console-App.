@@ -15,23 +15,39 @@ namespace MyApp
 
                 while (!match.endMatch)
                 {
-                    Console.Clear();
-                    
-                    Screen.PrintBoard(match.board);
-                    Console.WriteLine();
-                    Console.Write("Origin: ");
-                    Position Origin = Screen.ReadPosition().ToPosition();
 
-                    bool[,] PossiblePosition = match.board.piece(Origin).PossibleMovements();
+                    try
+                    {
+                        Console.Clear();
 
-                    Console.Clear();
-                    Screen.PrintBoard(match.board, PossiblePosition);
+                        Screen.PrintBoard(match.board);
+                        Console.WriteLine();
+                        Console.WriteLine("Turn of play: " + match.turn);
+                        Console.WriteLine("Waiting for player move: " + match.CurrentPlayer);
+                        Console.WriteLine();
 
-                    Console.WriteLine();
-                    Console.Write("Destination: ");
-                    Position Destination = Screen.ReadPosition().ToPosition();
+                        Console.Write("Origin: ");
+                        Position Origin = Screen.ReadPosition().ToPosition();
+                        match.ValidateHomePosition(Origin);
 
-                    match.ExecuteMovement(Origin, Destination);
+                        bool[,] PossiblePosition = match.board.piece(Origin).PossibleMovements();
+
+                        Console.Clear();
+                        Screen.PrintBoard(match.board, PossiblePosition);
+
+                        Console.WriteLine();
+                        Console.Write("Destination: ");
+                        Position Destination = Screen.ReadPosition().ToPosition();
+                        match.ValidadeDestinationPosition(Origin, Destination);
+
+                        match.MakeMove(Origin, Destination);
+                    }
+                    catch (BoardException e)
+                    {
+                        Console.WriteLine(e.Message);
+                        Console.ReadLine();
+                    }
+
                 }
             }
             catch (BoardException e)
