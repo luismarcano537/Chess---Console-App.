@@ -11,12 +11,15 @@ namespace Chess
         public Board board { get; private set; }
         private int turn;
         private Color CurrentPlayer;
+        public bool endMatch { get; private set; }
+
 
         public ChessMatch()
         {
             board = new Board(8, 8);
             turn = 1;
             CurrentPlayer = Color.White;
+            endMatch = false;
             PlacePiece();
         }
 

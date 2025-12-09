@@ -13,7 +13,19 @@ namespace MyApp
             {
                 ChessMatch match = new ChessMatch();
 
-                Screen.PrintBoard(match.board);
+                while (!match.endMatch)
+                {
+                    Console.Clear();
+                    
+                    Screen.PrintBoard(match.board);
+                    Console.WriteLine();
+                    Console.Write("Origin: ");
+                    Position Origin = Screen.ReadPosition().ToPosition();
+                    Console.Write("Destination: ");
+                    Position Destination = Screen.ReadPosition().ToPosition();
+
+                    match.ExecuteMovement(Origin, Destination);
+                }
             }
             catch (BoardException e)
             {
