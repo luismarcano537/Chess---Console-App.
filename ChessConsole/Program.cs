@@ -21,6 +21,13 @@ namespace MyApp
                     Console.WriteLine();
                     Console.Write("Origin: ");
                     Position Origin = Screen.ReadPosition().ToPosition();
+
+                    bool[,] PossiblePosition = match.board.piece(Origin).PossibleMovements();
+
+                    Console.Clear();
+                    Screen.PrintBoard(match.board, PossiblePosition);
+
+                    Console.WriteLine();
                     Console.Write("Destination: ");
                     Position Destination = Screen.ReadPosition().ToPosition();
 
