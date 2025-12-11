@@ -9,6 +9,42 @@ namespace screen
 {
     internal class Screen
     {
+        //Metodo para imprimir dados da partida, dando uma partida como argumento.
+        public static void PrintMatch(ChessMatch match)
+        {
+            Screen.PrintBoard(match.board);
+            Console.WriteLine();
+            PrintCapturedPieces(match);
+            Console.WriteLine();
+            Console.WriteLine("Turn of play: " + match.turn);
+            Console.WriteLine("Waiting for player move: " + match.CurrentPlayer);
+        }
+
+        //Metodo para imprimir as peças capturadas.
+        public static void PrintCapturedPieces(ChessMatch match)
+        {
+            Console.WriteLine("Captured Pieces: ");
+            Console.Write("Whites: ");
+            PrintSetPieces(match.PieceCaptured(Color.White));
+            Console.WriteLine();
+            Console.Write("Black: ");
+            ConsoleColor aux = Console.ForegroundColor;
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            PrintSetPieces(match.PieceCaptured(Color.Black));
+            Console.ForegroundColor= aux;
+            Console.WriteLine();
+        }
+
+        //Metodo para imprimir um conjunto.
+        public static void PrintSetPieces(HashSet<Piece> set)
+        {
+            Console.Write("[");
+            foreach (Piece x in set)
+            {
+                Console.Write(x + " ");
+            }
+            Console.Write("]");
+        }
 
         //Metodo para imprimir o tabuleiro.
         public static void PrintBoard(Board board)

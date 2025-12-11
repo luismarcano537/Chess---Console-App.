@@ -20,12 +20,9 @@ namespace MyApp
                     {
                         Console.Clear();
 
-                        Screen.PrintBoard(match.board);
+                        Screen.PrintMatch(match);
+                        
                         Console.WriteLine();
-                        Console.WriteLine("Turn of play: " + match.turn);
-                        Console.WriteLine("Waiting for player move: " + match.CurrentPlayer);
-                        Console.WriteLine();
-
                         Console.Write("Origin: ");
                         Position Origin = Screen.ReadPosition().ToPosition();
                         match.ValidateHomePosition(Origin);
