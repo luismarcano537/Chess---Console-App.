@@ -24,6 +24,11 @@ namespace board
             QttMovements++;
         }
 
+        public void DecreaseMovements()
+        {
+            QttMovements--;
+        }
+
         //Metodo para verificar se existe movimentos possives (Se a peça não está trancada)
         public bool PossibleMoves()
         {

@@ -18,6 +18,10 @@ namespace screen
             Console.WriteLine();
             Console.WriteLine("Turn of play: " + match.turn);
             Console.WriteLine("Waiting for player move: " + match.CurrentPlayer);
+            if (match.check)
+            {
+                Console.WriteLine("You are in XEQUE! ");
+            }
         }
 
         //Metodo para imprimir as peças capturadas.
@@ -31,7 +35,7 @@ namespace screen
             ConsoleColor aux = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Yellow;
             PrintSetPieces(match.PieceCaptured(Color.Black));
-            Console.ForegroundColor= aux;
+            Console.ForegroundColor = aux;
             Console.WriteLine();
         }
 

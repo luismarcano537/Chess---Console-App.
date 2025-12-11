@@ -14,6 +14,7 @@ namespace Chess
         public bool endMatch { get; private set; }
         private HashSet<Piece> PiecesActive;
         private HashSet<Piece> PiecesCaptured;
+        public bool check { get; private set; }
 
 
         public ChessMatch()
@@ -22,13 +23,14 @@ namespace Chess
             turn = 1;
             CurrentPlayer = Color.White;
             endMatch = false;
+            check = false;
             PiecesActive = new HashSet<Piece>();
             PiecesCaptured = new HashSet<Piece>();
             PlacePiece();
         }
 
         //Executa o movimento
-        public void ExecuteMovement(Position origin, Position destination)
+        public Piece ExecuteMovement(Position origin, Position destination)
         {
             Piece p = board.RemovePiece(origin);
             p.addMovements();
@@ -38,12 +40,42 @@ namespace Chess
             {
                 PiecesCaptured.Add(capturedPiece);
             }
+            return capturedPiece;
+        }
+
+        //Desfaz o movimento feito.
+        public void UndoMovement(Position origin, Position destination, Piece capturedPiece)
+        {
+            Piece p = board.RemovePiece(destination);
+            p.DecreaseMovements();
+            if (capturedPiece != null)
+            {
+                board.AddPiece(capturedPiece, destination);
+                PiecesCaptured.Remove(capturedPiece);
+            }
+            board.AddPiece(p, origin);
         }
 
         //Executa o movimento no tabuleiro
         public void MakeMove(Position origin, Position destination)
         {
-            ExecuteMovement(origin, destination);
+            Piece capturedPiece = ExecuteMovement(origin, destination);
+
+            if (KingIsCheck(CurrentPlayer))
+            {
+                UndoMovement(origin, destination, capturedPiece);
+                throw new BoardException("The king cannot be in check");
+            }
+
+            if (KingIsCheck(Adversery(CurrentPlayer)))
+            {
+                check = true;
+            }
+            else
+            {
+                check = false;
+            }
+
             turn++;
             ChangePlayer();
         }
@@ -115,6 +147,51 @@ namespace Chess
             }
             aux.ExceptWith(PieceCaptured(cor));
             return aux;
+        }
+
+        //Auxilia na identificcação da peça adversaria.
+        private Color Adversery(Color cor)
+        {
+            if (cor == Color.White)
+            {
+                return Color.Black;
+            }
+            else
+            {
+                return Color.White;
+            }
+        }
+
+        //Localiza o Rei no conjunto de peças em jogo.
+        private Piece king(Color cor)
+        {
+            foreach (Piece x in PieceInGame(cor))
+            {
+                if (x is King)
+                {
+                    return x;
+                }
+            }
+            return null;
+        }
+
+        //Metodo para testar se o rei está em xeque.
+        public bool KingIsCheck(Color cor)
+        {
+            Piece K = king(cor);
+            if (K == null)
+            {
+                throw new BoardException($"There is no king of Color {cor} on the board!");
+            }
+            foreach (Piece x in PieceInGame(Adversery(cor)))
+            {
+                bool[,] mat = x.PossibleMovements();
+                if (mat[K.position.Line, K.position.Column])
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         //Metodo auxiliar para ccolocar peças e adicionar no conjunto.
