@@ -107,7 +107,7 @@ namespace Chess
         //Valida os possiveis movimentos na posição de destino
         public void ValidadeDestinationPosition(Position origin, Position destination)
         {
-            if (!board.piece(origin).CanMoveTo(destination))
+            if (!board.piece(origin).PossibleMovementPiece(destination))
             {
                 throw new BoardException("Target position invalid!");
             }
