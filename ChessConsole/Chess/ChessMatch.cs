@@ -76,8 +76,15 @@ namespace Chess
                 check = false;
             }
 
-            turn++;
-            ChangePlayer();
+            if (TestCheckMate(Adversery(CurrentPlayer)))
+            {
+                endMatch = true;
+            }
+            else
+            {
+                turn++;
+                ChangePlayer();
+            }
         }
 
         //Valida os possiveis movimentos na posição de origem
@@ -192,6 +199,38 @@ namespace Chess
                 }
             }
             return false;
+        }
+
+        //Lógica para verificar se há xeque mate.
+        public bool TestCheckMate(Color cor)
+        {
+            if (!KingIsCheck(cor))
+            {
+                return false;
+            }
+            foreach (Piece x in PieceInGame(cor))
+            {
+                bool[,] mat = x.PossibleMovements();
+                for (int i = 0; i < board.Lines; i++)
+                {
+                    for (int j = 0; j < board.Columns; j++)
+                    {
+                        if (mat[i, j])
+                        {
+                            Position origin = x.position;
+                            Position destination = new Position(i, j);
+                            Piece pieceCaptured = ExecuteMovement(origin, destination);
+                            bool TestCheck = KingIsCheck(cor);
+                            UndoMovement(origin, destination, pieceCaptured);
+                            if (!TestCheck)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
         }
 
         //Metodo auxiliar para ccolocar peças e adicionar no conjunto.

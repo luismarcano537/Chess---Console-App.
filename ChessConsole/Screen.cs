@@ -17,10 +17,18 @@ namespace screen
             PrintCapturedPieces(match);
             Console.WriteLine();
             Console.WriteLine("Turn of play: " + match.turn);
-            Console.WriteLine("Waiting for player move: " + match.CurrentPlayer);
-            if (match.check)
+            if (!match.endMatch)
             {
-                Console.WriteLine("You are in XEQUE! ");
+                Console.WriteLine("Waiting for player move: " + match.CurrentPlayer);
+                if (match.check)
+                {
+                    Console.WriteLine("You are in XEQUE! ");
+                }
+            }
+            else
+            {
+                Console.WriteLine("XEQUEMATE!");
+                Console.WriteLine("Winner: " + match.CurrentPlayer);
             }
         }
 

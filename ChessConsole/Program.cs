@@ -19,7 +19,6 @@ namespace MyApp
                     try
                     {
                         Console.Clear();
-
                         Screen.PrintMatch(match);
                         
                         Console.WriteLine();
@@ -46,6 +45,8 @@ namespace MyApp
                     }
 
                 }
+                Console.Clear();
+                Screen.PrintMatch(match);
             }
             catch (BoardException e)
             {
