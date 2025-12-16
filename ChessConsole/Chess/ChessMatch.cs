@@ -243,19 +243,39 @@ namespace Chess
         //Coloca as peças no tabuleiro
         private void PlacePiece()
         {
-            AddNewPiece('c', 1, new Tower(board, Color.White));
-            AddNewPiece('c', 2, new Tower(board, Color.White));
-            AddNewPiece('d', 2, new Tower(board, Color.White));
-            AddNewPiece('e', 2, new Tower(board, Color.White));
-            AddNewPiece('e', 1, new Tower(board, Color.White));
-            AddNewPiece('d', 1, new King(board, Color.White));
+            AddNewPiece('a', 1, new Tower(board, Color.White));
+            AddNewPiece('b', 1, new Horse(board, Color.White));
+            AddNewPiece('c', 1, new Archbishop(board, Color.White));
+            AddNewPiece('d', 1, new Queen(board, Color.White));
+            AddNewPiece('e', 1, new King(board, Color.White));
+            AddNewPiece('f', 1, new Archbishop(board, Color.White));
+            AddNewPiece('g', 1, new Horse(board, Color.White));
+            AddNewPiece('h', 1, new Tower(board, Color.White));
+            AddNewPiece('a', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('b', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('c', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('d', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('e', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('f', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('g', 2, new Pawn(board, Color.White, this));
+            AddNewPiece('h', 2, new Pawn(board, Color.White, this));
 
-            AddNewPiece('c', 7, new Tower(board, Color.Black));
-            AddNewPiece('c', 8, new Tower(board, Color.Black));
-            AddNewPiece('d', 7, new Tower(board, Color.Black));
-            AddNewPiece('e', 7, new Tower(board, Color.Black));
-            AddNewPiece('e', 8, new Tower(board, Color.Black));
-            AddNewPiece('d', 8, new King(board, Color.Black));
+            AddNewPiece('a', 8, new Tower(board, Color.White));
+            AddNewPiece('b', 8, new Horse(board, Color.White));
+            AddNewPiece('c', 8, new Archbishop(board, Color.White));
+            AddNewPiece('d', 8, new Queen(board, Color.White));
+            AddNewPiece('e', 8, new King(board, Color.White));
+            AddNewPiece('f', 8, new Archbishop(board, Color.White));
+            AddNewPiece('g', 8, new Horse(board, Color.White));
+            AddNewPiece('h', 8, new Tower(board, Color.White));
+            AddNewPiece('a', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('b', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('c', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('d', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('e', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('f', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('g', 7, new Pawn(board, Color.White, this));
+            AddNewPiece('h', 7, new Pawn(board, Color.White, this));
         }
     }
 }
