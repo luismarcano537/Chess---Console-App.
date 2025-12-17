@@ -40,6 +40,30 @@ namespace Chess
             {
                 PiecesCaptured.Add(capturedPiece);
             }
+
+            // #Jogada especial roque Pequeno.
+            if (p is King && destination.Column == origin.Column + 2)
+            {
+                Position originT = new Position(origin.Column, origin.Column + 3);
+                Position destinationT = new Position(origin.Column, origin.Column + 1);
+
+                Piece T = board.RemovePiece(originT);
+                T.addMovements();
+                board.AddPiece(T, destinationT);
+            }
+
+            // #Jogada especial roque Grande.
+            if (p is King && destination.Column == origin.Column - 2)
+            {
+                Position originT = new Position(origin.Column, origin.Column - 4);
+                Position destinationT = new Position(origin.Column, origin.Column - 1);
+
+                Piece T = board.RemovePiece(originT);
+                T.addMovements();
+                board.AddPiece(T, destinationT);
+            }
+
+
             return capturedPiece;
         }
 
@@ -54,6 +78,30 @@ namespace Chess
                 PiecesCaptured.Remove(capturedPiece);
             }
             board.AddPiece(p, origin);
+
+
+            // Desfaz #Jogada especial roque Pequeno.
+            if (p is King && destination.Column == origin.Column + 2)
+            {
+                Position originT = new Position(origin.Column, origin.Column + 3);
+                Position destinationT = new Position(origin.Column, origin.Column + 1);
+
+                Piece T = board.RemovePiece(destination);
+                T.addMovements();
+                board.AddPiece(T, originT);
+            }
+
+            // Desfaz #Jogada especial roque Grande.
+            if (p is King && destination.Column == origin.Column - 2)
+            {
+                Position originT = new Position(origin.Column, origin.Column - 4);
+                Position destinationT = new Position(origin.Column, origin.Column - 1);
+
+                Piece T = board.RemovePiece(destinationT);
+                T.addMovements();
+                board.AddPiece(T, originT);
+            }
+
         }
 
         //Executa o movimento no tabuleiro
@@ -247,7 +295,7 @@ namespace Chess
             AddNewPiece('b', 1, new Horse(board, Color.White));
             AddNewPiece('c', 1, new Archbishop(board, Color.White));
             AddNewPiece('d', 1, new Queen(board, Color.White));
-            AddNewPiece('e', 1, new King(board, Color.White));
+            AddNewPiece('e', 1, new King(board, Color.White, this));
             AddNewPiece('f', 1, new Archbishop(board, Color.White));
             AddNewPiece('g', 1, new Horse(board, Color.White));
             AddNewPiece('h', 1, new Tower(board, Color.White));
@@ -264,7 +312,7 @@ namespace Chess
             AddNewPiece('b', 8, new Horse(board, Color.Black));
             AddNewPiece('c', 8, new Archbishop(board, Color.Black));
             AddNewPiece('d', 8, new Queen(board, Color.Black));
-            AddNewPiece('e', 8, new King(board, Color.Black));
+            AddNewPiece('e', 8, new King(board, Color.Black, this));
             AddNewPiece('f', 8, new Archbishop(board, Color.Black));
             AddNewPiece('g', 8, new Horse(board, Color.Black));
             AddNewPiece('h', 8, new Tower(board, Color.Black));
