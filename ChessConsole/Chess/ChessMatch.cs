@@ -176,6 +176,20 @@ namespace Chess
 
             Piece p = board.piece(destination);
 
+            // #Jogada especial promoção de Peão.
+            if (p is Pawn)
+            {
+                if ((p.color == Color.White && destination.Line == 0) || (p.color == Color.Black && destination.Line == 0))
+                {
+                    p = board.RemovePiece(destination);
+                    PiecesActive.Remove(p);
+                    Piece queen = new Queen(board, p.color);
+                    board.AddPiece(queen, destination);
+                    PiecesActive.Add(queen);
+                }
+            }
+
+
             // #Jogada especial en passant.
             if (p is Pawn && (destination.Line == origin.Line - 2 || destination.Line == origin.Line + 2))
             {
