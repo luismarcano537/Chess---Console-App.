@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 using board;
 using screen;
 
@@ -15,6 +16,7 @@ namespace Chess
         private HashSet<Piece> PiecesActive;
         private HashSet<Piece> PiecesCaptured;
         public bool check { get; private set; }
+        public Piece VulnerablePassant { get; private set; }
 
 
         public ChessMatch()
@@ -24,6 +26,7 @@ namespace Chess
             CurrentPlayer = Color.White;
             endMatch = false;
             check = false;
+            VulnerablePassant = null;
             PiecesActive = new HashSet<Piece>();
             PiecesCaptured = new HashSet<Piece>();
             PlacePiece();
@@ -63,6 +66,24 @@ namespace Chess
                 board.AddPiece(T, destinationT);
             }
 
+            //Jogada especial en Passant.
+            if (p is Pawn)
+            {
+                if (origin.Column != destination.Column && PieceCaptured == null)
+                {
+                    Position posP;
+                    if (p.color == Color.White)
+                    {
+                        posP = new Position(destination.Line + 1, destination.Column);
+                    }
+                    else
+                    {
+                        posP = new Position(destination.Line - 1, destination.Column);
+                    }
+                    capturedPiece = board.RemovePiece(posP);
+                    PiecesCaptured.Add(capturedPiece);
+                }
+            }
 
             return capturedPiece;
         }
@@ -102,6 +123,25 @@ namespace Chess
                 board.AddPiece(T, originT);
             }
 
+            // Desfaz #Jogada especial en passant
+            if (p is Pawn)
+            {
+                if (origin.Column != destination.Column && capturedPiece == VulnerablePassant)
+                {
+                    Piece pawn = board.RemovePiece(destination);
+                    Position posP;
+                    if (p.color == Color.White)
+                    {
+                        posP = new Position(3, destination.Column);
+                    }
+                    else
+                    {
+                        posP = new Position(4, destination.Column);
+                    }
+                    board.AddPiece(p, posP);
+                }
+            }
+
         }
 
         //Executa o movimento no tabuleiro
@@ -133,6 +173,19 @@ namespace Chess
                 turn++;
                 ChangePlayer();
             }
+
+            Piece p = board.piece(destination);
+
+            // #Jogada especial en passant.
+            if (p is Pawn && (destination.Line == origin.Line - 2 || destination.Line == origin.Line + 2))
+            {
+                VulnerablePassant = p;
+            }
+            else
+            {
+                VulnerablePassant = null;
+            }
+
         }
 
         //Valida os possiveis movimentos na posição de origem
