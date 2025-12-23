@@ -29,7 +29,7 @@ O sistema foi dividido em três camadas principais:
 ### Visualização da Estrutura (UML)
 Para garantir o desacoplamento e a correta aplicação dos pilares da POO, a estrutura de classes foi desenhada conforme o diagrama abaixo:
 
-![Class Diagram UML](Assets\Diagram-ChessConsole.png)
+![Class Diagram UML](Assets/Diagram-ChessConsole.png)
 
 ## Desafios Técnicos Solucionados
 * **Polimorfismo Avançado:** Implementação de movimentos genéricos na classe abstrata `Piece`, onde cada subclasse (Tower, Bishop, etc.) define sua própria lógica de alcance.
