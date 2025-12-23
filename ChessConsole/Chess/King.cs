@@ -97,7 +97,7 @@ namespace Chess
 
 
             // # Jogada especial.
-            if (QttMovements == 0 && !match.TestCheckMate(color))
+            if (QttMovements == 0)
             {
                 Position posT1 = new Position(position.Line, position.Column + 3);
                 // Roque pequeno.

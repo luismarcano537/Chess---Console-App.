@@ -20,7 +20,7 @@ namespace Chess
         private bool CanMove(Position pos)
         {
             Piece p = board.piece(pos);
-            return p == null || p.color == color;
+            return p == null || p.color != color;
         }
 
 
