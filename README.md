@@ -1,11 +1,19 @@
-# Chess System - C# Console ♟️
+# Chess Engine em C# - Arquitetura Orientada a Objetos e Lógica de Domínio ♟️
 
 [![Dotnet](https://img.shields.io/badge/.NET-512BD4?style=for-the-badge&logo=dotnet&logoColor=white)](https://dotnet.microsoft.com/)
 
 Este não é apenas um jogo de xadrez, mas um estudo aprofundado sobre **Engenharia de Software**, focado em **Programação Orientada a Objetos (POO)** e **Arquitetura de Camadas**.
 
 ## Objetivo do Projeto
-O foco principal foi transpor a complexidade das regras do xadrez para um sistema estruturado, priorizando o desacoplamento entre a lógica de negócio e a interface de usuário.
+Este projeto consiste no desenvolvimento de um motor de xadrez em C#, com foco em modelagem de domínio, arquitetura orientada a objetos e separação de responsabilidades, simulando desafios reais de aplicações backend com regras complexas e múltiplos estados.
+
+## Destaque Técnico
+
+* Modelagem de regras complexas de negócio
+*  Aplicação prática de SOLID
+* Uso de polimorfismo para extensibilidade de regras
+* Gestão de estado e validações consistentes
+* Arquitetura desacoplada e organizada em camadas
 
 ## Demonstração de Execução
 
